@@ -69,4 +69,8 @@ return {
       },
     },
   },
+  {
+    "ranjithshegde/ccls.nvim",
+    event = "User AstroFile"
+  },
 }

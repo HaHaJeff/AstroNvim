@@ -150,13 +150,7 @@ if is_available "gitsigns.nvim" then
   maps.n["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" }
   maps.n["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" }
   maps.n["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" }
-  maps.n["<leader>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview Git hunk" }
-  maps.n["<leader>gh"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset Git hunk" }
-  maps.n["<leader>gr"] = { function() require("gitsigns").reset_buffer() end, desc = "Reset Git buffer" }
-  maps.n["<leader>gs"] = { function() require("gitsigns").stage_hunk() end, desc = "Stage Git hunk" }
-  maps.n["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Git buffer" }
-  maps.n["<leader>gu"] = { function() require("gitsigns").undo_stage_hunk() end, desc = "Unstage Git hunk" }
-  maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "View Git diff" }
+  maps.n["<leader>gv"] = { function() require("gitsigns").diffthis() end, desc = "View Git diff" }
 end
 
 -- NeoTree
@@ -304,6 +298,18 @@ if is_available "telescope.nvim" then
   }
 end
 
+-- ccls
+maps.n["<leader>l"] = sections.l
+maps.n["<leader>ic"] = { "<cmd>CclsIncomingCallsHierarchy float<cr>", desc = "show calls hierarchy" }
+maps.n["<leader>id"] = { "<cmd>CclsDerivedHierarchy float<cr>", desc = "show derive hierarchy" }
+maps.n["<leader>ib"] = { "<cmd>CclsBaseHierarchy float<cr>", desc = "show base hierarchy" }
+maps.n["<leader>gd"] = { function() require'telescope.builtin'.lsp_definitions{} end, desc = "go to definitions" }
+maps.n["<leader>gD"] = { function() require'telescope.builtin'.lsp_type_definitions{} end, desc = "go to type definitions" }
+maps.n["<leader>gr"] = { function() require'telescope.builtin'.lsp_references{} end, desc = "show references" }
+maps.n["<leader>gi"] = { function() require'telescope.builtin'.lsp_implementations{} end, desc = "show implementations" }
+maps.n["<leader>rn"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "rename variable" }
+
+
 -- Terminal
 if is_available "toggleterm.nvim" then
   maps.n["<leader>t"] = sections.t
@@ -311,9 +317,6 @@ if is_available "toggleterm.nvim" then
     maps.n["<leader>g"] = sections.g
     maps.n["<leader>gg"] = { function() utils.toggle_term_cmd "lazygit" end, desc = "ToggleTerm lazygit" }
     maps.n["<leader>tl"] = { function() utils.toggle_term_cmd "lazygit" end, desc = "ToggleTerm lazygit" }
-  end
-  if vim.fn.executable "node" == 1 then
-    maps.n["<leader>tn"] = { function() utils.toggle_term_cmd "node" end, desc = "ToggleTerm node" }
   end
   if vim.fn.executable "gdu" == 1 then
     maps.n["<leader>tu"] = { function() utils.toggle_term_cmd "gdu" end, desc = "ToggleTerm gdu" }
@@ -326,10 +329,6 @@ if is_available "toggleterm.nvim" then
   maps.n["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
   maps.n["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "ToggleTerm horizontal split" }
   maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" }
-  maps.n["<F7>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
-  maps.t["<F7>"] = maps.n["<F7>"]
-  maps.n["<C-'>"] = maps.n["<F7>"]
-  maps.t["<C-'>"] = maps.n["<F7>"]
 end
 
 if is_available "nvim-dap" then
