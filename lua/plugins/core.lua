@@ -4,26 +4,6 @@ return {
   { "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
   { "max397574/better-escape.nvim", event = "InsertCharPre", opts = { timeout = 300 } },
   { "NMAC427/guess-indent.nvim", event = "User AstroFile", config = require "plugins.configs.guess-indent" },
-  { -- TODO: REMOVE neovim-session-manager with AstroNvim v4
-    "Shatur/neovim-session-manager",
-    event = "BufWritePost",
-    cmd = "SessionManager",
-    enabled = vim.g.resession_enabled ~= true,
-  },
-  {
-    "stevearc/resession.nvim",
-    enabled = vim.g.resession_enabled == true,
-    opts = {
-      buf_filter = function(bufnr) return require("astronvim.utils.buffer").is_valid(bufnr) end,
-      tab_buf_filter = function(tabpage, bufnr) return vim.tbl_contains(vim.t[tabpage].bufs, bufnr) end,
-      extensions = { astronvim = {} },
-    },
-  },
-  { "s1n7ax/nvim-window-picker", opts = { use_winbar = "smart" } },
-  {
-    "mrjones2014/smart-splits.nvim",
-    opts = { ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" }, ignored_buftypes = { "nofile" } },
-  },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -43,15 +23,6 @@ return {
       },
     },
     config = require "plugins.configs.nvim-autopairs",
-  },
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {
-      icons = { group = vim.g.icons_enabled and "" or "+", separator = "" },
-      disable = { filetypes = { "TelescopePrompt" } },
-    },
-    config = require "plugins.configs.which-key",
   },
   {
     "kevinhwang91/nvim-ufo",
@@ -76,12 +47,12 @@ return {
         end
 
         return (filetype == "" or buftype == "nofile") and "indent" -- only use indent until a file is opened
-          or function(bufnr)
-            return require("ufo")
-              .getFolds(bufnr, "lsp")
-              :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
-              :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
-          end
+        or function(bufnr)
+          return require("ufo")
+          .getFolds(bufnr, "lsp")
+          :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
+          :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
+        end
       end,
     },
   },
@@ -107,4 +78,34 @@ return {
       },
     },
   },
+  {
+    'echasnovski/mini.pairs',
+    version = '*',
+    event = "VeryLazy",
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      -- load the colorscheme here
+      vim.cmd([[colorscheme tokyonight]])
+    end,
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    },
+  },
+
 }
