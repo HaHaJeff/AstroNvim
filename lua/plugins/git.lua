@@ -39,5 +39,13 @@ return {
         config = function()
             require("gitlab").setup()
         end,
+    },
+    {
+      url="git@gitlab.alibaba-inc.com:trip-tools/aone-copilot.nvim.git",
+      config = function()
+        -- 如果触发补全的 mapping 有冲突，重新定义触发键
+        vim.g.aone_copilot_trigger = '<c-m>'
+        vim.g.aone_copilot_token = 'LSB5YVV0ckZERGVROGo0bTJzd3hjTAo='
+      end
     }
 }

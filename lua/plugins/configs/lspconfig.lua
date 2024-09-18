@@ -40,6 +40,8 @@ return function(_, _)
       cache = {
         directory = ".ccls-cache";
       },
-    }
+    },
+  }
+  lspconfig.rust_analyzer.setup {
   }
 end

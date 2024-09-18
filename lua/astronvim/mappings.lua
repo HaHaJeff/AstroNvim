@@ -15,6 +15,7 @@ local sections = {
   g = { desc = "󰊢 Git" },
   S = { desc = "󱂬 Session" },
   t = { desc = " Terminal" },
+  G = { desc = "󰊢 Gitlab" },
 }
 if not vim.g.icons_enabled then vim.tbl_map(function(opts) opts.desc = opts.desc:gsub("^.* ", "") end, sections) end
 
@@ -152,6 +153,19 @@ if is_available "gitsigns.nvim" then
   maps.n["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" }
   maps.n["<leader>gv"] = { function() require("gitsigns").diffthis() end, desc = "View Git diff" }
 end
+
+-- gitlab
+if is_available "gitlab.nvim" then
+  maps.n["<leader>G"] = sections.G
+  maps.n["<leader>Gr"] = { function() require("gitlab").review() end, desc = "gitlab review" }
+  maps.n["<leader>Gs"] = { function() require("gitlab").summary() end, desc = "gitlab summary" }
+  maps.n["<leader>Ga"] = { function() require("gitlab").approve() end, desc = "gitlab approve" }
+  maps.n["<leader>GR"] = { function() require("gitlab").revoke() end, desc = "gitlab revoke" }
+  maps.n["<leader>Gc"] = { function() require("gitlab").create_comment() end, desc = "gitlab create comment" }
+  maps.n["<leader>Gm"] = { function() require("gitlab").create_mr() end, desc = "gitlab create merge request" }
+  maps.n["<leader>Gd"] = { function() require("gitlab").toggle_discussions() end, desc = "gitlab toggle discusstion" }
+end
+
 
 -- NeoTree
 if is_available "neo-tree.nvim" then
@@ -302,12 +316,13 @@ end
 maps.n["<leader>l"] = sections.l
 maps.n["<leader>ic"] = { "<cmd>CclsIncomingCallsHierarchy float<cr>", desc = "show calls hierarchy" }
 maps.n["<leader>id"] = { "<cmd>CclsDerivedHierarchy float<cr>", desc = "show derive hierarchy" }
-maps.n["<leader>ib"] = { "<cmd>CclsBaseHierarchy float<cr>", desc = "show base hierarchy" }
+maps.n["<leader>ib"] = { "<cmd>CclsBaseHierarchy<cr>", desc = "show base hierarchy" }
 maps.n["<leader>gd"] = { function() require'telescope.builtin'.lsp_definitions{} end, desc = "go to definitions" }
 maps.n["<leader>gD"] = { function() require'telescope.builtin'.lsp_type_definitions{} end, desc = "go to type definitions" }
 maps.n["<leader>gr"] = { function() require'telescope.builtin'.lsp_references{} end, desc = "show references" }
 maps.n["<leader>gi"] = { function() require'telescope.builtin'.lsp_implementations{} end, desc = "show implementations" }
 maps.n["<leader>rn"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "rename variable" }
+--maps.n["<leader>gh"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "hover" }
 
 
 -- Terminal

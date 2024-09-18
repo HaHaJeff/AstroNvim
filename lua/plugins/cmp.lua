@@ -51,7 +51,7 @@ return {
         },
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
+          select = true,
         },
         window = {
           completion = cmp.config.window.bordered(border_opts),
